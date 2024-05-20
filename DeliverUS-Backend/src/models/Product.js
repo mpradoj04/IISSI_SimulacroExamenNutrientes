@@ -17,6 +17,10 @@ const loadModel = (sequelize, DataTypes) => {
       Product.belongsTo(models.ProductCategory, { foreignKey: 'productCategoryId', as: 'productCategory' })
       Product.belongsToMany(models.Order, { as: 'orders', through: OrderProducts })
     }
+
+    getCalories () {
+      return this.fats * 9 + this.proteins * 4 + this.carbohydrates * 4
+    }
   }
   Product.init({
     name: DataTypes.STRING,
@@ -26,7 +30,28 @@ const loadModel = (sequelize, DataTypes) => {
     order: DataTypes.INTEGER,
     availability: DataTypes.BOOLEAN,
     restaurantId: DataTypes.INTEGER,
-    productCategoryId: DataTypes.INTEGER
+    productCategoryId: DataTypes.INTEGER,
+    fats: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    proteins: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    carbohydrates: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    calories: {
+      type: DataTypes.VIRTUAL,
+      get () {
+        return this.getCalories()
+      }
+    }
   }, {
     sequelize,
     modelName: 'Product'

@@ -62,6 +62,11 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
       >
         <TextRegular numberOfLines={2}>{item.description}</TextRegular>
         <TextSemiBold textStyle={styles.price}>{item.price.toFixed(2)}€</TextSemiBold>
+        <TextSemiBold>Nutritional composition: </TextSemiBold>
+        <TextSemiBold>  Fats: <TextRegular>{item.fats}</TextRegular></TextSemiBold>
+        <TextSemiBold>  Proteins: <TextRegular>{item.proteins}</TextRegular></TextSemiBold>
+        <TextSemiBold>  Carbohydrates: <TextRegular>{item.carbohydrates}</TextRegular></TextSemiBold>
+        <TextSemiBold>  Total calories: <TextRegular>{item.calories}</TextRegular></TextSemiBold>
         {!item.availability &&
           <TextRegular textStyle={styles.availability }>Not available</TextRegular>
         }
@@ -235,12 +240,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
     margin: '1%',
     padding: 10,
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
     flexDirection: 'column',
-    width: '50%'
+    width: '30%'
   },
   actionButtonsContainer: {
-    flexDirection: 'row',
+    flex: 1,
+    flexDirection: 'column',
     bottom: 5,
     position: 'absolute',
     width: '90%'
